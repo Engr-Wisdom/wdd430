@@ -1,9 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const TodoList = () => {
     const [name, setName] = useState("")
     const [date, setDate] = useState()
-    const [task, setTask] = useState([])
+    const [task, setTask] = useState(() => {
+        const saved = localStorage.getItem("task")
+        return saved ? JSON.parse(saved) : []
+    })
+
+    useEffect(() => {
+        localStorage.setItem("task", JSON.stringify(task))
+    }, [task])
+
+    useEffect(() => {
+        const savedTask = localStorage.getItem("task")
+        savedTask && JSON.parse(savedTask);
+    }, [])
 
   return (
     <div className='bg-gray-800 w-2xl m-auto mt-5 p-5 rounded'>
