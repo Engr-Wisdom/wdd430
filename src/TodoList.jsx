@@ -17,6 +17,12 @@ const TodoList = () => {
         savedTask && JSON.parse(savedTask);
     }, [])
 
+    const toggleComplete = (index) => {
+        setTask(prev => prev.map((task, i) => (
+            i === index ? {...task, complete: !task.complete} : task
+        )))
+    }
+
   return (
     <div className='bg-gray-800 w-2xl m-auto mt-5 p-5 rounded'>
       <h1 className='text-white text-2xl font-medium text-center mb-5'>Todo List</h1>
@@ -32,7 +38,7 @@ const TodoList = () => {
 
         <button type="submit" className='bg-green-700 rounded text-white font-medium cursor-pointer'
         onClick={() =>{
-            name !== "" && date !== "" && setTask(task => [...task, {name, date}])
+            name !== "" && date !== "" && setTask(task => [...task, {name, date, complete: false}])
             }}>Add</button>
       </form>
 
@@ -41,7 +47,7 @@ const TodoList = () => {
         <ul>
             {task.map((task, index) => (
                 <li key={index} className='mt-2 grid grid-cols-[0.2fr_3fr_2fr_1fr] gap-2 text-white text-md items-center'>
-                    <input type="checkbox" />
+                    <input type="checkbox" checked={task.complete} onChange={() => toggleComplete(index)} />
                     <span>{task.name}</span> 
                     <span>{task.date}</span>
                     <button className='bg-red-800 rounded py-1 cursor-pointer' onClick={() => {
