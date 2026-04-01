@@ -1,0 +1,12 @@
+﻿{
+  "builds": [
+    {
+      "src": "nextjs-dashboard/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "framework": "nextjs",
+  "buildCommand": "cd nextjs-dashboard && npm run build",
+  "installCommand": "cd nextjs-dashboard && npm install",
+  "outputDirectory": "nextjs-dashboard/.next"
+}
